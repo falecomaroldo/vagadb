@@ -1,0 +1,27 @@
+-- Criar o banco de dados
+CREATE DATABASE IF NOT EXISTS vagabd;
+
+-- Usar o banco de dados criado
+USE vagabd;
+
+-- Tabela 'usuario'
+CREATE TABLE IF NOT EXISTS usuario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    perfil ENUM('Operador', 'Gerencial', 'Administrador') NOT NULL DEFAULT 'Operador',
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    ultima_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+-- Tabela 'pessoas'
+CREATE TABLE IF NOT EXISTS pessoas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    idade INT,
+    email VARCHAR(100),
+    data_cadastro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    responsavel_cadastro INT,
+    FOREIGN KEY (responsavel_cadastro) REFERENCES usuario(id)
+);
